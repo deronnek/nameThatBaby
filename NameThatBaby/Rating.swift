@@ -10,7 +10,7 @@ import Foundation
 
 class Rating: NSObject
 {
-    let ConservativeStandardDeviationMultiplier = 3.0
+    //let ConservativeStandardDeviationMultiplier = 3.0
     var _ConservativeStandardDeviationMultiplier = Double()
     var _Mean = Double()
     var _StandardDeviation = Double()
@@ -23,6 +23,7 @@ class Rating: NSObject
     /// <param name="mean">The statistical mean value of the rating (also known as μ).</param>
     /// <param name="standardDeviation">The standard deviation (the spread) of the rating (also known as σ).</param>
     /// <param name="conservativeStandardDeviationMultiplier">The number of <paramref name="standardDeviation"/>s to subtract from the <paramref name="mean"/> to achieve a conservative rating.</param>
+    
     init(mean:Double, standardDeviation:Double, conservativeStandardDeviationMultiplier:Double) {
         self._Mean = mean
         self._StandardDeviation = standardDeviation
@@ -35,7 +36,11 @@ class Rating: NSObject
     /// <param name="mean">The statistical mean value of the rating (also known as μ).</param>
     /// <param name="standardDeviation">The standard deviation of the rating (also known as σ).</param>
     convenience init(mean:Double, standardDeviation:Double) {
-        self.init(mean:mean, standardDeviation:standardDeviation, conservativeStandardDeviationMultiplier: self.ConservativeStandardDeviationMultiplier)
+        self.init(mean:mean, standardDeviation:standardDeviation, conservativeStandardDeviationMultiplier: 3.0)
+        //self._Mean = mean
+        //self._StandardDeviation = standardDeviation
+        //self._ConservativeStandardDeviationMultiplier = 3.0
+
     }
     
     /// <summary>

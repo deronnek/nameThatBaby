@@ -27,6 +27,7 @@ class GameInfo
     
     convenience init(initialMean:Double, initialStandardDeviation:Double, beta:Double, dynamicFactor:Double, drawProbability:Double)
     {
+        self.init()
         self.initialMean = initialMean;
         self.initialStandardDeviation = initialStandardDeviation;
         self.beta = beta;

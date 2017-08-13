@@ -72,20 +72,7 @@ class TruncatedGaussianCorrectionFunctions: NSObject
     func vWithinMargin(teamPerformanceDifference:Double, drawMargin:Double, c:Double) -> Double
     {
         return self.vWithinMargin(teamPerformanceDifference: teamPerformanceDifference/c, drawMargin: drawMargin/c)
-    //var teamPerformanceDifferenceAbsoluteValue = Math.Abs(teamPerformanceDifference);
-    //return (GaussianDistribution.At((-drawMargin - teamPerformanceDifferenceAbsoluteValue) / c) - GaussianDistribution.At((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c))
-    //       /
-    //       (GaussianDistribution.CumulativeTo((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c) - GaussianDistribution.CumulativeTo((-drawMargin - teamPerformanceDifferenceAbsoluteValue) / c));
     }
-    
-    // My original:
-    //public static double VWithinMargin(double teamPerformanceDifference, double drawMargin)
-    //{
-    //    var teamPerformanceDifferenceAbsoluteValue = Math.Abs(teamPerformanceDifference);
-    //    return (GaussianDistribution.At(-drawMargin - teamPerformanceDifferenceAbsoluteValue) - GaussianDistribution.At(drawMargin - teamPerformanceDifferenceAbsoluteValue))
-    //           /
-    //           (GaussianDistribution.CumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue) - GaussianDistribution.CumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue));
-    //}
     
     // from F#:
     func vWithinMargin(teamPerformanceDifference:Double, drawMargin:Double) -> Double {
@@ -119,49 +106,7 @@ class TruncatedGaussianCorrectionFunctions: NSObject
     func  wWithinMargin(teamPerformanceDifference:Double, drawMargin:Double, c:Double) -> Double {
         return self.wWithinMargin(teamPerformanceDifference: teamPerformanceDifference/c, drawMargin: drawMargin/c)
     }
-    //var teamPerformanceDifferenceAbsoluteValue = Math.Abs(teamPerformanceDifference);
-    //var vDraw = VWithinMargin(teamPerformanceDifferenceAbsoluteValue, drawMargin, c);
-    
-    //return (vDraw * vDraw)
-    //       +
-    //       (
-    //        (
-    //            (
-    //                ((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
-    //                *
-    //                GaussianDistribution.At((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
-    //            )
-    //            +
-    //            (
-    //                ((drawMargin + teamPerformanceDifferenceAbsoluteValue) / c)
-    //                *
-    //                GaussianDistribution.At((drawMargin + teamPerformanceDifferenceAbsoluteValue) / c)
-    //            )
-    //        )
-    //        /
-    //        (
-    //            GaussianDistribution.CumulativeTo((drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
-    //            -
-    //            GaussianDistribution.CumulativeTo((-drawMargin - teamPerformanceDifferenceAbsoluteValue) / c)
-    //        )
-    //    );
-    //}
-    
-    // My original:
-    //public static double WWithinMargin(double teamPerformanceDifference, double drawMargin)
-    //{
-    //    var teamPerformanceDifferenceAbsoluteValue = Math.Abs(teamPerformanceDifference);
-    //    var vDraw = VWithinMargin(teamPerformanceDifferenceAbsoluteValue, drawMargin);
-    //    return (vDraw * vDraw)
-    //           +
-    //           (
-    //                ((drawMargin - teamPerformanceDifferenceAbsoluteValue) * GaussianDistribution.At(drawMargin - teamPerformanceDifferenceAbsoluteValue) + (drawMargin + teamPerformanceDifferenceAbsoluteValue) * GaussianDistribution.At(drawMargin + teamPerformanceDifferenceAbsoluteValue))
-    //                /
-    //                (GaussianDistribution.CumulativeTo(drawMargin - teamPerformanceDifferenceAbsoluteValue) - GaussianDistribution.CumulativeTo(-drawMargin - teamPerformanceDifferenceAbsoluteValue))
-    //           );
-    //}
-    
-    // From F#:
+
     func wWithinMargin(teamPerformanceDifference:Double, drawMargin:Double) -> Double {
         let teamPerformanceDifferenceAbsoluteValue = abs(teamPerformanceDifference)
         let denominator = GaussianDistribution().cumulativeTo(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) -
