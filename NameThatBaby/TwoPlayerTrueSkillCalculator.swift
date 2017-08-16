@@ -24,7 +24,7 @@ enum PairwiseComparison {
 class TwoPlayerTrueSkillCalculator : NSObject {
 
 
-    func CalculateNewRatings(gameInfo: GameInfo, winningTeam: (Int, Rating), losingTeam: (Int, Rating), teamRanks: [Int]) -> [Int: Rating] {
+    func CalculateNewRatings(gameInfo: GameInfo, winningTeam: (Int, Rating), losingTeam: (Int, Rating), wasDraw: Bool) -> [Int: Rating] {
             
             // Make sure things are in order
             //RankSorter.Sort(teams, teamRanks)
@@ -35,8 +35,6 @@ class TwoPlayerTrueSkillCalculator : NSObject {
         
             let loser = losingTeam.0
             let loserPreviousRating = losingTeam.1
-            
-            let wasDraw = (teamRanks[0] == teamRanks[1])
         
             var results = [Int: Rating]()
             results[winner] = CalculateNewRating(gameInfo: gameInfo, selfRating: winnerPreviousRating, opponentRating: loserPreviousRating, comparison: wasDraw ? PairwiseComparison.Draw : PairwiseComparison.Win)

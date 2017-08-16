@@ -19,6 +19,7 @@
 		0BB77A5F1F27E936008C7B87 /* NameThatBabyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB77A5E1F27E936008C7B87 /* NameThatBabyTests.swift */; };
 		0BB77A6A1F27E936008C7B87 /* NameThatBabyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB77A691F27E936008C7B87 /* NameThatBabyUITests.swift */; };
 		0BB77A7E1F27EC94008C7B87 /* GaussianDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB77A7D1F27EC94008C7B87 /* GaussianDistribution.swift */; };
+		0BC440191F43319B008C7B87 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC440181F43319B008C7B87 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		0BB77A691F27E936008C7B87 /* NameThatBabyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameThatBabyUITests.swift; sourceTree = "<group>"; };
 		0BB77A6B1F27E936008C7B87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BB77A7D1F27EC94008C7B87 /* GaussianDistribution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaussianDistribution.swift; sourceTree = "<group>"; };
+		0BC440181F43319B008C7B87 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				0BB77A4D1F27E936008C7B87 /* Main.storyboard */,
 				0BA4ED311F2A7EAC008C7B87 /* GameInfo.swift */,
 				0BB77A7D1F27EC94008C7B87 /* GaussianDistribution.swift */,
+				0BC440181F43319B008C7B87 /* Player.swift */,
 				0BA4ED2D1F2A7576008C7B87 /* TruncatedGaussianCorrectionFunctions.swift */,
 				0BA4ED2F1F2A7CF4008C7B87 /* TwoPlayerTrueSkillCalculator.swift */,
 				0BA4ED331F2A7F27008C7B87 /* Rating.swift */,
@@ -281,6 +284,7 @@
 				0BA4ED301F2A7CF4008C7B87 /* TwoPlayerTrueSkillCalculator.swift in Sources */,
 				0BB77A7E1F27EC94008C7B87 /* GaussianDistribution.swift in Sources */,
 				0BB77A4A1F27E936008C7B87 /* AppDelegate.swift in Sources */,
+				0BC440191F43319B008C7B87 /* Player.swift in Sources */,
 				0BA4ED2E1F2A7576008C7B87 /* TruncatedGaussianCorrectionFunctions.swift in Sources */,
 				0BA4ED321F2A7EAC008C7B87 /* GameInfo.swift in Sources */,
 				0BA4ED341F2A7F27008C7B87 /* Rating.swift in Sources */,
