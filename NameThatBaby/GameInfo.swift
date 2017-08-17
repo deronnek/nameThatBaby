@@ -20,7 +20,7 @@ class GameInfo
     {
         self.initialMean = 25.0;
         self.beta = self.initialMean/6.0;
-        self.drawProbability = 0.10;
+        self.drawProbability = 0.00;
         self.dynamicsFactor = self.initialMean/300.0;
         self.initialStandardDeviation = self.initialMean/3.0;
     }
