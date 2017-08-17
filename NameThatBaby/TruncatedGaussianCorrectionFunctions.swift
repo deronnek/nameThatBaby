@@ -11,6 +11,7 @@ import Foundation
 class TruncatedGaussianCorrectionFunctions: NSObject
 {
     let denomMinimum = 2.222758749e-162
+    let gaussianDist = GaussianDistribution()
     // These functions from the bottom of page 4 of the TrueSkill paper.
     
     /// <summary>
@@ -27,13 +28,13 @@ class TruncatedGaussianCorrectionFunctions: NSObject
     }
     
     func vExceedsMargin(teamPerformanceDifference:Double, drawMargin:Double) -> Double {
-        let denominator = GaussianDistribution().cumulativeTo(x: teamPerformanceDifference - drawMargin)
+        let denominator = gaussianDist.cumulativeTo(x: teamPerformanceDifference - drawMargin)
     
         if (denominator < denomMinimum) {
             return -teamPerformanceDifference + drawMargin
         }
         
-        return GaussianDistribution().at(x: teamPerformanceDifference - drawMargin)/denominator
+        return gaussianDist.at(x: teamPerformanceDifference - drawMargin)/denominator
     }
     
     /// <summary>
@@ -54,7 +55,7 @@ class TruncatedGaussianCorrectionFunctions: NSObject
     
     func wExceedsMargin(teamPerformanceDifference:Double, drawMargin:Double) -> Double {
     
-        let denominator = GaussianDistribution().cumulativeTo(x: teamPerformanceDifference - drawMargin)
+        let denominator = gaussianDist.cumulativeTo(x: teamPerformanceDifference - drawMargin)
     
         if (denominator < denomMinimum)
         {
@@ -79,8 +80,8 @@ class TruncatedGaussianCorrectionFunctions: NSObject
     func vWithinMargin(teamPerformanceDifference:Double, drawMargin:Double) -> Double {
         let teamPerformanceDifferenceAbsoluteValue = abs(teamPerformanceDifference)
         let denominator =
-            GaussianDistribution().cumulativeTo(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) -
-                GaussianDistribution().cumulativeTo(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
+            gaussianDist.cumulativeTo(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) -
+                gaussianDist.cumulativeTo(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
         
         if (denominator < denomMinimum)
         {
@@ -92,8 +93,8 @@ class TruncatedGaussianCorrectionFunctions: NSObject
             return -teamPerformanceDifference + drawMargin
         }
         
-        let numerator = GaussianDistribution().at(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue) -
-        GaussianDistribution().at(x: drawMargin - teamPerformanceDifferenceAbsoluteValue);
+        let numerator = gaussianDist.at(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue) -
+        gaussianDist.at(x: drawMargin - teamPerformanceDifferenceAbsoluteValue);
         
         if (teamPerformanceDifference < 0.0)
         {
@@ -110,8 +111,8 @@ class TruncatedGaussianCorrectionFunctions: NSObject
 
     func wWithinMargin(teamPerformanceDifference:Double, drawMargin:Double) -> Double {
         let teamPerformanceDifferenceAbsoluteValue = abs(teamPerformanceDifference)
-        let denominator = GaussianDistribution().cumulativeTo(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) -
-            GaussianDistribution().cumulativeTo(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
+        let denominator = gaussianDist.cumulativeTo(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) -
+            gaussianDist.cumulativeTo(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
     
         if (denominator < denomMinimum)
         {
@@ -124,9 +125,9 @@ class TruncatedGaussianCorrectionFunctions: NSObject
         (
             (drawMargin - teamPerformanceDifferenceAbsoluteValue)
                 *
-                GaussianDistribution().at(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) - (-drawMargin - teamPerformanceDifferenceAbsoluteValue)
+                gaussianDist.at(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) - (-drawMargin - teamPerformanceDifferenceAbsoluteValue)
                 *
-                GaussianDistribution().at(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
+                gaussianDist.at(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
         )/denominator;
     }
 }

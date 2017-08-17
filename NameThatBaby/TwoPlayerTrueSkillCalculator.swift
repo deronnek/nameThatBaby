@@ -48,7 +48,7 @@ class TwoPlayerTrueSkillCalculator : NSObject {
                             comparison:PairwiseComparison) -> Rating
         {
             let drawMargin = GaussianDistribution().getDrawMarginFromDrawProbability(drawProbability: gameInfo.drawProbability, beta: gameInfo.beta);
-            
+            let tgcfHelper = TruncatedGaussianCorrectionFunctions()
             let c =
             sqrt(
             selfRating.StandardDeviation()*selfRating.StandardDeviation()
@@ -80,14 +80,14 @@ class TwoPlayerTrueSkillCalculator : NSObject {
             if (comparison != .Draw)
             {
             // non-draw case
-                v = TruncatedGaussianCorrectionFunctions().vExceedsMargin(teamPerformanceDifference: meanDelta, drawMargin: drawMargin, c: c)
-                w = TruncatedGaussianCorrectionFunctions().wExceedsMargin(teamPerformanceDifference: meanDelta, drawMargin: drawMargin, c: c)
+                v = tgcfHelper.vExceedsMargin(teamPerformanceDifference: meanDelta, drawMargin: drawMargin, c: c)
+                w = tgcfHelper.wExceedsMargin(teamPerformanceDifference: meanDelta, drawMargin: drawMargin, c: c)
                 rankMultiplier = (comparison == .Win ? 1 : -1)
             }
             else
             {
-                v = TruncatedGaussianCorrectionFunctions().vWithinMargin(teamPerformanceDifference: meanDelta, drawMargin: drawMargin, c: c)
-                w = TruncatedGaussianCorrectionFunctions().wWithinMargin(teamPerformanceDifference: meanDelta, drawMargin: drawMargin, c: c)
+                v = tgcfHelper.vWithinMargin(teamPerformanceDifference: meanDelta, drawMargin: drawMargin, c: c)
+                w = tgcfHelper.wWithinMargin(teamPerformanceDifference: meanDelta, drawMargin: drawMargin, c: c)
                 rankMultiplier = 1
             }
             
