@@ -5,6 +5,14 @@
 //  Created by Kevin DeRonne on 7/25/17.
 //  Copyright © 2017 Kevin DeRonne. All rights reserved.
 //
+// TODO:
+//
+// Most of this needs to be moved out of ViewController, as it's really model stuff.
+// Load top n names from a given decade based on census data
+// Enter your own names
+// Persistance of ranked list
+// Communication with a partner's app (concurrency will be fun here)
+//
 
 import UIKit
 
