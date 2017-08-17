@@ -12,11 +12,12 @@ class ViewController: UIViewController {
     
     let gameInfo     = GameInfo()
     //let allNames     = ["Kevin", "Jane", "Paul", "Beth", "Chris", "Amy", "Andrew", "Becky", "Oliver"]
-    let allNames     = ["Kevin", "Jane", "Paul"]
+    var allNames     = ["Kevin", "Jane", "Paul"]
     var players      = [Player]()
     var currentLeft  = Player(id: -1, name:"Null")
     var currentRight = Player(id: -1, name:"Null")
     let skillCalculator = TwoPlayerTrueSkillCalculator()
+    var useRandomNames  = false
     
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
@@ -42,13 +43,11 @@ class ViewController: UIViewController {
     
     // Left name responder
     @IBAction func leftWinner(_ sender: UIButton) {
-        print("LeftName wins")
         self.matchOver(winningTeam: (currentLeft.id, currentLeft.rating), losingTeam: (currentRight.id, currentRight.rating), wasDraw: false)
         
     }
     
     @IBAction func rightWinner(_ sender: UIButton) {
-        print("RightName wins")
         self.matchOver(winningTeam: (currentRight.id, currentRight.rating), losingTeam: (currentLeft.id, currentLeft.rating), wasDraw: false)
     }
     
@@ -57,8 +56,18 @@ class ViewController: UIViewController {
         for player in self.players.sorted(by: {$0.rating.Mean() > $1.rating.Mean()}) {
             print(player.name, player.rating.Mean(), player.rounds)
         }
+        let _ = self.getLadder()
     }
-    
+    func getLadder() -> [String:Double] {
+        var ret = [String:Double]()
+        for player in self.players.sorted(by: {$0.rating.Mean() > $1.rating.Mean()}) {
+            //print(player.name, player.rating.Mean(), player.rounds)
+            ret[player.name] = player.rating.Mean()
+        }
+        //print(ret)
+        return ret
+        
+    }
     func nextMatch() {
         // Pick two random names from the set of names with minumum number of rounds
         // --This amounts to: select from order by asc, random() limit 2
@@ -70,11 +79,19 @@ class ViewController: UIViewController {
         let minRounds = sortedPlayers[1].rounds
         let filteredSortedPlayers = sortedPlayers.filter({$0.rounds <= minRounds})
         
-        // third, pick two random names from the filtered list (and make sure they aren't the same)
-        let first  = Int(arc4random_uniform(UInt32(filteredSortedPlayers.count)))
-        var second = Int(arc4random_uniform(UInt32(filteredSortedPlayers.count)))
-        while first == second {
+        var first = Int()
+        var second = Int()
+        if useRandomNames {
+            // third, pick two random names from the filtered list (and make sure they aren't the same)
+            first  = Int(arc4random_uniform(UInt32(filteredSortedPlayers.count)))
             second = Int(arc4random_uniform(UInt32(filteredSortedPlayers.count)))
+            while first == second {
+                second = Int(arc4random_uniform(UInt32(filteredSortedPlayers.count)))
+            }
+        }
+        else {
+            first  = 0
+            second = 1
         }
         
         // First and second work as indexes into sortedPlayers because the filtered list will always be <= the full list

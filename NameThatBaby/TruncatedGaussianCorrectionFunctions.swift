@@ -10,6 +10,7 @@ import Foundation
 
 class TruncatedGaussianCorrectionFunctions: NSObject
 {
+    let denomMinimum = 2.222758749e-162
     // These functions from the bottom of page 4 of the TrueSkill paper.
     
     /// <summary>
@@ -28,12 +29,12 @@ class TruncatedGaussianCorrectionFunctions: NSObject
     func vExceedsMargin(teamPerformanceDifference:Double, drawMargin:Double) -> Double {
         let denominator = GaussianDistribution().cumulativeTo(x: teamPerformanceDifference - drawMargin)
     
-        if (denominator < 2.222758749e-162) {
+        if (denominator < denomMinimum) {
             return -teamPerformanceDifference + drawMargin
         }
         
         return GaussianDistribution().at(x: teamPerformanceDifference - drawMargin)/denominator
-        }
+    }
     
     /// <summary>
     /// The "W" function where the team performance difference is greater than the draw margin.
@@ -55,7 +56,7 @@ class TruncatedGaussianCorrectionFunctions: NSObject
     
         let denominator = GaussianDistribution().cumulativeTo(x: teamPerformanceDifference - drawMargin)
     
-        if (denominator < 2.222758749e-162)
+        if (denominator < denomMinimum)
         {
             if (teamPerformanceDifference < 0.0)
             {
@@ -81,7 +82,7 @@ class TruncatedGaussianCorrectionFunctions: NSObject
             GaussianDistribution().cumulativeTo(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) -
                 GaussianDistribution().cumulativeTo(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
         
-        if (denominator < 2.222758749e-162)
+        if (denominator < denomMinimum)
         {
             if (teamPerformanceDifference < 0.0)
             {
@@ -112,20 +113,20 @@ class TruncatedGaussianCorrectionFunctions: NSObject
         let denominator = GaussianDistribution().cumulativeTo(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) -
             GaussianDistribution().cumulativeTo(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
     
-    if (denominator < 2.222758749e-162)
-    {
-        return 1.0;
-    }
-    
-    let vt = self.vWithinMargin(teamPerformanceDifference: teamPerformanceDifferenceAbsoluteValue, drawMargin: drawMargin);
-    
-        return vt*vt +
-    (
-        (drawMargin - teamPerformanceDifferenceAbsoluteValue)
-            *
-            GaussianDistribution().at(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) - (-drawMargin - teamPerformanceDifferenceAbsoluteValue)
-            *
-            GaussianDistribution().at(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
-    )/denominator;
+        if (denominator < denomMinimum)
+        {
+            return 1.0;
+        }
+        
+        let vt = self.vWithinMargin(teamPerformanceDifference: teamPerformanceDifferenceAbsoluteValue, drawMargin: drawMargin);
+        
+            return vt*vt +
+        (
+            (drawMargin - teamPerformanceDifferenceAbsoluteValue)
+                *
+                GaussianDistribution().at(x: drawMargin - teamPerformanceDifferenceAbsoluteValue) - (-drawMargin - teamPerformanceDifferenceAbsoluteValue)
+                *
+                GaussianDistribution().at(x: -drawMargin - teamPerformanceDifferenceAbsoluteValue)
+        )/denominator;
     }
 }
