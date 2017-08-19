@@ -238,9 +238,6 @@ def plot_results():
         #print(mu,sigma)
         #plt.show()
     pylab.show()
-    time.sleep(2)
-    pylab.hide()
-
 
 matchers = {"min-rounds": pick_pair_nrounds,
             "cov-high": pick_pair_cov_high,
