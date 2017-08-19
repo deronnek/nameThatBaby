@@ -157,12 +157,12 @@ def pick_pair_minimum_z():
                 max_p = p
 
     print("Max p: {:.4f}".format(max_p))
-    return pair
+    return max_p, pair[0], pair[1]
 
 
 def play_round(matcher):
     this_round = get_last_round() + 1
-    id1, id2 = matcher()
+    p, id1, id2 = matcher()
     m1, s1, r1 = get_id_stats(id1)
     m2, s2, r2 = get_id_stats(id2)
     r1 = TS.create_rating(m1, s1)
@@ -195,11 +195,16 @@ def is_sorted():
 
     show_sort_state(true, current)
 
-    if true == current:
+    #if true == current:
+    #    return True
+
+    #return False
+
+    p, x, y = pick_pair_minimum_z()
+    if p < 0.05:
         return True
 
     return False
-
 
 def show_sort_state(true, current):
     for n in range(len(true)):
