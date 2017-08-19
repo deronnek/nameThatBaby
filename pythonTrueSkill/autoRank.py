@@ -185,8 +185,8 @@ def print_results():
 def is_sorted():
     #results = get_results()
 
-    #true = sorted(results, key=itemgetter('id'))
-    #current = sorted(results, key=itemgetter('mu'), reverse=True)
+    true = sorted(results, key=itemgetter('id'))
+    current = sorted(results, key=itemgetter('mu'), reverse=True)
 
     show_sort_state(true, current)
 
