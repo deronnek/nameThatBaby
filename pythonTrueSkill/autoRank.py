@@ -1,4 +1,5 @@
 from __future__ import print_function
+import numpy as np
 import sqlite3
 import trueskill
 import argparse
@@ -9,10 +10,14 @@ from itertools import combinations
 from operator import itemgetter
 from math import floor, log
 from scipy.stats import ttest_ind_from_stats
+from scipy.stats import norm
+import seaborn as sns
+import pylab
+import matplotlib.pyplot as plt
 
 def bhatta(m1, s1, m2, s2):
-    # Calculate the Bhattacharyya distance between two normal distibutions,
-    # defined by their means (m#) and standard deviations (s#)
+    """Calculate the Bhattacharyya distance between two normal distibutions,
+    defined by their means (m#) and standard deviations (s#)"""
 
     # Convert s.d. to variance (sigma^2)
     v1 = s1**2
@@ -212,8 +217,24 @@ def init_db(schema_file='schema.sql'):
 
 def make_names(n):
     for i in range(n):
-        name = ''.join([random.choice(string.lowercase) for i in xrange(10)])
+        name = str(random.random()%10)
         add_name(name)
+
+def plot_results():
+    dists = get_results()
+    x_axis = np.linspace(0, 50, 1000)
+    for dist in dists:
+        mu    = dist['mu']    
+        sigma = dist['sigma']
+        plot_dist = norm.pdf(x_axis, loc=mu, scale=sigma)
+        #sns.distplot(plot_dist, hist=False, kde_kws={"shade":True}, ax = axes[1,0])
+        #sns.distplot(plot_dist, hist=False, kde_kws={"shade":True})
+        pylab.plot(x_axis, plot_dist)
+        #print(mu,sigma)
+        #plt.show()
+    pylab.show()
+    time.sleep(2)
+    pylab.hide()
 
 
 matchers = {"min-rounds": pick_pair_nrounds,
@@ -240,9 +261,12 @@ if __name__ == '__main__':
     make_names(args.n)
 
     n_rounds = 0
-    while not is_sorted():
+    while not n_rounds > 100:
         play_round(matcher)
-        print("Played round {}".format(n_rounds))
+        #print("Played round {}".format(n_rounds))
         n_rounds += 1
+        if n_rounds %10 == 0:
+            plot_results()
 
+    
     print("Sorted after {} rounds".format(n_rounds))
