@@ -263,12 +263,14 @@ if __name__ == '__main__':
     make_names(args.n)
 
     n_rounds = 0
-    while not n_rounds > 100:
+    while not n_rounds > 45:
+    #while not is_sorted():
         play_round(matcher)
         #print("Played round {}".format(n_rounds))
         n_rounds += 1
-        if n_rounds %10 == 0:
+        if n_rounds % 10 == 0:
             plot_results()
+    plot_results()
 
     
     print("Sorted after {} rounds".format(n_rounds))
