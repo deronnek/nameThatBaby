@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
+    @IBOutlet weak var middleButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +71,17 @@ class ViewController: UIViewController {
         }
         //let _ = self.model.getLadder()
     }
+    @IBAction func swipeLeft(_ sender: UISwipeGestureRecognizer) {
+        self.leftWinner(self.leftButton)
+    }
+
+    @IBAction func swipeRight(_ sender: UISwipeGestureRecognizer) {
+        self.rightWinner(self.rightButton)
+    }
     
+    @IBAction func swipeUp(_ sender: UISwipeGestureRecognizer) {
+        self.noWinner(self.middleButton)
+    }
     // there's a way to have the buttons monitor the values of variables and update accordingly
     // Can't remember what it is at the moment though
     func updateButtonLabelsWithNewNames() {
