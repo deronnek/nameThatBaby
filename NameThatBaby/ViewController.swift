@@ -7,7 +7,8 @@
 //
 // TODO:
 //
-// Most of this needs to be moved out of ViewController, as it's really model stuff.
+// Most of this needs to be moved out of ViewController, as it's really model stuff. 
+//      --> This will require updating the tests as well, sadly
 // Load top n names from a given decade based on census data
 // Enter your own names
 // Persistance of ranked list
