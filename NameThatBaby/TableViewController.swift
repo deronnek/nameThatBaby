@@ -14,7 +14,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet var textField: UITextField!
     @IBOutlet var tableView: UITableView!
     var taskArray : NSMutableArray! = NSMutableArray() //Could be a non-NS as well
-    var model = Model(useRandomNames: false, names: [])
+    var model = Model(useRandomNames: true, names: [])
     
     @IBAction func addTask(sender: AnyObject) {
         //Print to alert we entered method
