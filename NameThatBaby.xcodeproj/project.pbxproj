@@ -21,6 +21,7 @@
 		0BB77A6A1F27E936008C7B87 /* NameThatBabyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB77A691F27E936008C7B87 /* NameThatBabyUITests.swift */; };
 		0BB77A7E1F27EC94008C7B87 /* GaussianDistribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BB77A7D1F27EC94008C7B87 /* GaussianDistribution.swift */; };
 		0BC440191F43319B008C7B87 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BC440181F43319B008C7B87 /* Player.swift */; };
+		0BEBE18D1F51DEB3008C7B87 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BEBE18C1F51DEB3008C7B87 /* TableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		0BB77A6B1F27E936008C7B87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0BB77A7D1F27EC94008C7B87 /* GaussianDistribution.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GaussianDistribution.swift; sourceTree = "<group>"; };
 		0BC440181F43319B008C7B87 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		0BEBE18C1F51DEB3008C7B87 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				0BB77A4B1F27E936008C7B87 /* ViewController.swift */,
 				0B0EB06F1F4F4CE400913261 /* Model.swift */,
 				0BB77A4D1F27E936008C7B87 /* Main.storyboard */,
+				0BEBE18C1F51DEB3008C7B87 /* TableViewController.swift */,
 				0BA4ED311F2A7EAC008C7B87 /* GameInfo.swift */,
 				0BB77A7D1F27EC94008C7B87 /* GaussianDistribution.swift */,
 				0BC440181F43319B008C7B87 /* Player.swift */,
@@ -286,6 +289,7 @@
 				0B0EB0701F4F4CE400913261 /* Model.swift in Sources */,
 				0BB77A4C1F27E936008C7B87 /* ViewController.swift in Sources */,
 				0BA4ED301F2A7CF4008C7B87 /* TwoPlayerTrueSkillCalculator.swift in Sources */,
+				0BEBE18D1F51DEB3008C7B87 /* TableViewController.swift in Sources */,
 				0BB77A7E1F27EC94008C7B87 /* GaussianDistribution.swift in Sources */,
 				0BB77A4A1F27E936008C7B87 /* AppDelegate.swift in Sources */,
 				0BC440191F43319B008C7B87 /* Player.swift in Sources */,

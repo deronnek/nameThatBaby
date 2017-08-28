@@ -24,7 +24,7 @@
  // Implement team-based trueskill and find a way to determine name similarities within teams so 
  // large groups of names can be eliminated in one stroke
  // Ability to have two lists (what if you don't know the gender)
- */
+
 
 import UIKit
 
