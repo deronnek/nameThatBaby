@@ -33,7 +33,7 @@ class ViewController: UIViewController {
 
     //let model = Model(useRandomNames: false)
     //var model: Model
-    var model = Model(useRandomNames: false, names: [])
+    var model = Model(useRandomNames: true, names: [])
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var middleButton: UIButton!
