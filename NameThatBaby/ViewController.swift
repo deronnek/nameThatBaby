@@ -31,8 +31,9 @@ import UIKit
 class ViewController: UIViewController {
     
 
-    let model = Model(useRandomNames: false)
-    
+    //let model = Model(useRandomNames: false)
+    //var model: Model
+    var model = Model(useRandomNames: false, names: [])
     @IBOutlet weak var leftButton: UIButton!
     @IBOutlet weak var rightButton: UIButton!
     @IBOutlet weak var middleButton: UIButton!
@@ -40,14 +41,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-
+        print("Ran viewDidLoad")
         
         // Set initial match
         self.model.nextMatch()
         self.updateButtonLabelsWithNewNames()
     }
-
+ 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -89,5 +89,15 @@ class ViewController: UIViewController {
         self.leftButton.setTitle(self.model.currentLeft?.name, for: .normal)
         self.rightButton.setTitle(self.model.currentRight?.name, for: .normal)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "viewResults" {
+            if let toViewController = segue.destination as? ResultTableViewController {
+                toViewController.taskArray = self.model.getRankedNames()
+            }
+        }
+    }
+
 }
 

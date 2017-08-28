@@ -14,6 +14,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet var textField: UITextField!
     @IBOutlet var tableView: UITableView!
     var taskArray : NSMutableArray! = NSMutableArray() //Could be a non-NS as well
+    var model = Model(useRandomNames: false, names: [])
     
     @IBAction func addTask(sender: AnyObject) {
         //Print to alert we entered method
@@ -23,6 +24,9 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         //Add object to array, reload table
         self.taskArray.add(input!)
         self.tableView.reloadData()
+        textField.text = ""
+        
+        self.model.addName(name: input!)
         
     }//addTask
     
@@ -50,6 +54,7 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: "cell") as UITableViewCell!
         cell.textLabel?.text = self.taskArray.object(at: indexPath.row) as? String
+        cell.textLabel?.textAlignment = .center
         return cell
     }
 
@@ -59,14 +64,24 @@ class TableViewController: UIViewController, UITableViewDelegate, UITableViewDat
         if editingStyle == .delete {
             
             // remove the item from the data model
+            // This is probably more properly done with observers
             self.taskArray.removeObject(at: indexPath.row)
+            self.model.removeName(withId: indexPath.row)
             
             // delete the table view row
             tableView.deleteRows(at: [indexPath], with: .fade)
-            self.tableView.reloadData()
             
         } else if editingStyle == .insert {
             // Not used in our example, but if you were adding a new row, this is where you would do it.
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "startRank" {
+            if let toViewController = segue.destination as? ViewController {
+                toViewController.model = self.model
+            }
         }
     }
 }

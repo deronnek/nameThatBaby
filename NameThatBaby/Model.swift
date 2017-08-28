@@ -10,31 +10,45 @@ import Foundation
 
 class Model: NSObject {
     var gameInfo: GameInfo
-    var allNames: [String]
     var players: [Player]
     var currentLeft: Player?
     var currentRight: Player?
     var skillCalculator: TwoPlayerTrueSkillCalculator
     var useRandomNames: Bool
     
-    init(useRandomNames: Bool) {
+    init(useRandomNames: Bool, names: [String]) {
+        
         self.gameInfo = GameInfo()
-        self.allNames = ["Kevin", "Jane", "Paul"]
+        //self.allNames = ["Kevin", "Jane", "Paul"]
         //let allNames     = ["Kevin", "Jane", "Paul", "Beth", "Chris", "Amy", "Andrew", "Becky", "Oliver"]
-        self.players = [Player]()
-        self.currentLeft = nil
-        self.currentRight = nil
+        //self.allNames = names
+        self.players  = [Player]()
+        self.currentLeft     = nil
+        self.currentRight    = nil
         self.skillCalculator = TwoPlayerTrueSkillCalculator()
-        self.useRandomNames = useRandomNames
+        self.useRandomNames  = useRandomNames
+        
+        super.init()
         
         // Populate players list
-        for name in allNames {
-            let lastId = players.count
-            self.players.append(Player(id:lastId+1, name:name))
+        for name in names {
+            self.addName(name: name)
         }
     }
     
+    func addName(name:String) {
+        let lastId = players.count
+        self.players.append(Player(id:lastId, name:name))
+    }
+    
+    func removeName(withId:Int) {
+        self.players.remove(at: withId)
+    }
+    
     func nextMatch() {
+        if self.players.count < 2 {
+            return
+        }
         // Pick two random names from the set of names with minumum number of rounds
         // --This amounts to: select from order by asc, random() limit 2
         // first, sort list by rounds in ascending order
@@ -59,11 +73,14 @@ class Model: NSObject {
         // First and second work as indexes into sortedPlayers because the filtered list will always be <= the full list
         self.currentLeft  = sortedPlayers[first]
         self.currentRight = sortedPlayers[second]
-        sortedPlayers[first].rounds  += 1
-        sortedPlayers[second].rounds += 1
+
     }
     
     func matchOver(winningTeam: (Int, Rating), losingTeam: (Int,Rating), wasDraw: Bool) {
+        
+        self.currentLeft?.rounds  += 1
+        self.currentRight?.rounds += 1
+        
         let res = skillCalculator.CalculateNewRatings(gameInfo: gameInfo, winningTeam: winningTeam, losingTeam: losingTeam, wasDraw: wasDraw)
         // Assign new ratings.  Super inefficient but the results are always n=2 and there just can't be that many names.
         for x in res {
@@ -85,7 +102,14 @@ class Model: NSObject {
         }
         //print(ret)
         return ret
-        
+    }
+    
+    func getRankedNames() -> [String] {
+        var ret = [String]()
+        for player in self.players.sorted(by: {$0.rating.Mean() > $1.rating.Mean()}) {
+            ret.append(player.name)
+        }
+        return ret
     }
 
 }
